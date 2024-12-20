@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/estilos.css">
+    <title> Registrarse </title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .form-group label {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .nav-item {
+            font-size: 15px; height: 60px
+        }
+    </style>
+</head>
+<body class="margen" style="padding-top: 80px;">
+
+<nav class="navbar fixed-top" style="background-color: #802ce8; padding-left: 30px;">
+    <div class="container-fluid" style="padding-right: 40px;">
+        <a class="navbar-brand" style="color:white; padding: 1rem 1rem;">EPS Nuestra Salud SAS</a>
+        <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="color: white;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #0037B6; font-size: 25px;">EPS Nuestra Salud SAS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/iniciosesion}">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/afiliacion/nueva}">Solicitar afiliación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Volver</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container" style=" width:600px; height: fit-content; align-items: center;">
+
+    <h2 style="text-align: center; font-size: 30px; color: #802ce8; padding: 10px">Registro de Usuario</h2>
+
+    <div th:if="${param.exito}">
+        <div class="alert alert-info">Se ha registrado exitosamente</div>
+    </div>
+    <div th:if="${param.error}">
+        <div class="alert alert-warning">Datos no encontrados, debe <a style="color: #0037B6;" th:href="@{/afiliacion/nueva}">Solicitar la afiliacion a la EPS</a></div>
+    </div>
+    <div th:if="${param.errorRegistro}">
+        <div class="alert alert-warning">Este usuario ya existe, por favor <a style="color: #0037B6;" th:href="@{/iniciosesion}">Inicie Sesión</a></div>
+    </div>
+    <form th:action="@{/crearegistro}" method="post" th:object="${elregistro}">
+
+        <div class="form-group">
+            <label class="control-label" for="tipoIdentificacion">Tipo de Identificación:</label>
+            <select id="tipoIdentificacion" class="form-control" name="tipoIdentificacion" required autofocus="autofocus">
+                <option value="">Seleccione el tipo de identificación</option>
+                <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+                <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+                <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="idUsuario">Identificación: </label> <input
+                id="idUsuario" type="number" class="form-control" value="" th:field="*{idUsuario}"
+                required autofocus min="10000000" max="9999999999">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="nombre">Nombre Completo: </label> <input
+                id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                required autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="fechaNacimiento">Fecha Nacimiento: </label> <input
+                id="fechaNacimiento" type="date" class="form-control" th:field="*{fechaNacimiento}"
+                required autofocus="autofocus" th:max="${#dates.format(#calendars.createNow(), 'yyyy-MM-dd')}" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="celular">Celular : </label> <input
+                id="celular" type="number" class="form-control" th:field="*{celular}"
+                required autofocus="autofocus" min="3000000000" max="3999999999">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="genero">Género : </label>
+            <select id="genero" class="form-control" name="genero" required autofocus="autofocus">
+                <option value="">Seleccione el género</option>
+                <option value="Femenimo">Femenimo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="direccion">Dirección : </label> <input
+                id="direccion" type="text" class="form-control" th:field="*{direccion}"
+                required autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="correo">Correo : </label> <input
+                id="correo" type="email" class="form-control" th:field="*{correo}"
+                required autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="contrasenia">Contraseña : </label> <input
+                id="contrasenia" type="password" class="form-control" th:field="*{contrasenia}"
+                required autofocus="autofocus" placeholder="Asigne una contraseña">
+        </div>
+
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" style=" width:575px;">Registrarse</button>
+        </div>
+        <br>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('idUsuario').value = '';
+    });
+
+    function calcularEdad(fechaNacimiento) {
+        const hoy = new Date();
+        const nacimiento = new Date(fechaNacimiento);
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const mes = hoy.getMonth() - nacimiento.getMonth();
+        if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
+        return edad;
+    }
+
+    function validarEdad() {
+        const tipoIdentificacion = document.getElementById('tipoIdentificacion').value;
+        const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+        const edad = calcularEdad(fechaNacimiento);
+
+        if (tipoIdentificacion === 'Cédula de Ciudadanía' && edad < 18 || tipoIdentificacion === 'Cédula de Extranjería' && edad < 18) {
+            alert('Debe ser mayor de edad para seleccionar Cédula');
+            return false;
+        } else if (tipoIdentificacion === 'Tarjeta de Identidad' && edad >= 18) {
+            alert('Debe ser menor de edad para seleccionar Tarjeta de Identidad.');
+            return false;
+        }
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tipoIdentificacion = document.getElementById('tipoIdentificacion');
+        const fechaNacimiento = document.getElementById('fechaNacimiento');
+
+        tipoIdentificacion.addEventListener('change', validarEdad);
+        fechaNacimiento.addEventListener('change', validarEdad);
+
+        document.getElementById('elregistro').addEventListener('submit', function(event) {
+            if (!validarEdad()) {
+                event.preventDefault();
+            }
+        });
+    });
+
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"
+
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+</script>
+</body>
+</html>

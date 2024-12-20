@@ -1,0 +1,20 @@
+/* styles.css */
+
+/* Estilo para la tabla */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: lightblue;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: lightgreen;
+}
+
+/* Estilo para el botón de agendar */
+.btn-agendar {
+    background-color: blue;
+    color: white;
+}
+
+.btn-agendar:hover {
+    background-color: darkblue;
+}

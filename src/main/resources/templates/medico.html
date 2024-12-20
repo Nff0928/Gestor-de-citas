@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container" style="width : 90%">
+    <br>
+    <a class="btn btn-primary" href="#" th:href="@{/medico/nuevo/{identificacion}(identificacion=${identificacion})}">Adicionar Medico</a>
+    <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor/{identificacion}(identificacion=${identificacion})}">Volver</a>
+
+    <br> <br>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Identificación</th>
+            <th>Nombre Completo</th>
+            <th>Estado</th>
+            <th>Registro</th>
+            <th>Rol</th>
+            <th>ID Especialidad</th>
+            <th>Especialidad</th>
+            <th>Consultorio</th>
+            <th>ID Sede</th>
+            <th>Sede</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="dato : ${listamedicos}">
+            <td th:text="${dato.identificacion}">Identificación</td>
+            <td th:text="${dato.nombre}">Nombre Completo</td>
+            <td th:text="${dato.estado ? 'Vigente' : 'No Vigente'}">Estado</td>
+            <td th:text="${dato.registro != null ? dato.registro.idRegistro : ''}">ID Registro</td>
+            <td th:text="${dato.rol.idRol}">ID Rol</td>
+            <td th:text="${dato.especialidad.idEspecialidad}">ID Especialidad</td>
+            <td th:text="${dato.especialidad.nombre}">Nombre Especialidad</td>
+            <td th:text="${dato.consultorio.idConsultorio}">ID Consultorio</td>
+            <td th:text="${dato.sede.idSede}">ID Sede</td>
+            <td th:text="${dato.sede.nombre}">Nombre Sede</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

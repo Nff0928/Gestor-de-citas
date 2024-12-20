@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/estilos.css">
+    <title> Iniciar Sesión </title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .form-group label {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .nav-item {
+            font-size: 15px; height: 60px
+        }
+
+    </style>
+</head>
+<body class="margen" style="padding-top: 150px;">
+
+<nav class="navbar fixed-top" style="background-color: #802ce8; padding-left: 30px;">
+    <div class="container-fluid" style="padding-right: 40px;">
+        <a class="navbar-brand" style="color:white; padding: 1rem 1rem;">EPS Nuestra Salud SAS</a>
+        <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="color: white;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #0037B6; font-size: 25px;">EPS Nuestra Salud SAS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/registro/nuevo}">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/afiliacion/nueva}">Solicitar afiliación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/}">Volver</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container" style=" width:600px; height: fit-content; align-items: center;">
+    <h2 style="text-align: center; font-size: 30px; color: #0037B6; padding: 20px">Iniciar sesión</h2>
+
+    <div th:if="${param.error}">
+        <div class="alert alert-warning" role="alert">Este usuario no se encuentra registrado, por favor <span><a style="color: #802ce8;" th:href="@{/registro/nuevo}">Registrese aquí</a></span></div>
+    </div>
+    <div th:if="${param.errorUsuario}">
+        <div class="alert alert-warning" role="alert">Usuario o contraseña incorrectos</div>
+    </div>
+    <div th:if="${param.cerrarSesión}">
+        <div class="alert alert-warning" role="alert">Ha cerrado sesión exitosamente</div>
+    </div>
+    <form th:action="@{/sesion}" method="post" th:object="${elregistro}" >
+        <div class="form-group">
+            <label class="control-label" for="idUsuario">Identificación: </label> <input
+                id="idUsuario" type="number" class="form-control" th:field="*{idUsuario}"
+                required autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="contrasenia">Contraseña : </label> <input
+                id="contrasenia" type="password" class="form-control" th:field="*{contrasenia}"
+                required autofocus="autofocus">
+        </div>
+
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" style=" width:575px;">Ingresar</button>
+        </div>
+        <br>
+        <div class="col-12 forgot">
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('idUsuario').value = '';
+    });
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"
+
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+</script>
+</body>
+</html>

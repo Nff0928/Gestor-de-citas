@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+  <title>Listado de Citas Agendadas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- Enlace al archivo CSS personalizado -->
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("td").each(function() {
+      var cellValue = $(this).text();
+      if (cellValue == "Cancelada") {
+        $(this).css("background-color", "#FF7F7F"); // Rojo pastel
+      } else if (cellValue == "Programada") {
+        $(this).css("background-color", "#90EE90"); // Verde pastel
+      }else if (cellValue == "Proceso") {
+        $(this).css("background-color", "#5ef6fb"); // Verde pastel
+      }else if (cellValue == "Finalizada") {
+        $(this).css("background-color", "#e0cdf6"); // Verde pastel
+      }
+    });
+  });
+</script>
+<body>
+<nav class="navbar fixed-top" style="background-color: #af7dfb; padding-left: 30px;">
+  <div class="container">
+    <a class="navbar-brand" style="color:white; padding: 1rem 1rem;">EPS Nuestra Salud SAS</a>
+  </div>
+</nav>
+
+<div class="container" style="margin-top: 100px;">
+  <h1 style="color: #802ce8; font-size: 20px; font-family: 'Arial Black', sans-serif;">Informe</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th>Fecha</th>
+      <th>Medico</th>
+      <th>Direccion</th>
+      <th>Estado</th>
+      <th>Especialidad</th>
+      <th>Afiliado</th>
+      <th>Observacion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dato : ${citas}">
+      <td th:text="${dato.fecha}">Fecha Cita</td>
+      <td th:text="${dato.medico?.nombre}">Nombre Medico</td>
+      <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
+      <td th:text="${dato.estado}">Estado</td>
+      <td th:text="${dato.especialidad?.nombre}">Especialidad</td>
+      <td th:text="${dato.afiliado?.nombre}">Afiliado</td>
+      <td th:text="${dato.observacion}">Observacion</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <a class="btn btn-primary" th:href="@{/inicioConsultor/{identificacion}(identificacion=${identificacion})}"style="background-color: #802ce8; border-color: #af7dfb; transition: background-color 0.3s ease; color: white;">Regresar al inicio</a>
+  </div>
+</div>
+</body>
+</html>

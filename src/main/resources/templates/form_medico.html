@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title> Medico nuevo </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="card-body">
+    <h1>EPS Nuestra Salud SAS</h1>
+    <h2>Registro de Medicos</h2>
+        <form th:action="@{/crearmedico/{identificacion}(identificacion=${identificacion})}" method="post" th:object="${elmedico}">
+            <div class="form-group">
+                <label class="control-label" for="identificacion">Identificación: </label> <input
+                    id="identificacion" type="number" class="form-control" th:field="*{identificacion}"
+                    required autofocus="autofocus" min="10000000" max="9999999999">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="nombre">Nombre Completo : </label> <input
+                    id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                    required autofocus="autofocus">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="estado">Estado: </label>
+                <select id="estado" class="form-control" name="estado" th:field="*{estado}" required autofocus="autofocus">
+                    <option value="">Seleccione el estado</option>
+                    <option value="true">Vigente</option>
+                    <option value="false">No Vigente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="idEspecialidad">Especialidad : </label>
+                <select id="idEspecialidad" class="form-control" name="idEspecialidad" th:field="*{especialidad.idEspecialidad}" required autofocus="autofocus">
+                    <option value="">Seleccione la especialidad</option>
+                    <option th:each="dato : ${listaespecialidad}" th:value="${dato.idEspecialidad}" th:text="${dato.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="idConsultorio">Consultorio : </label>
+                <select id="idConsultorio" class="form-control" name="idConsultorio" th:field="*{consultorio.idConsultorio}" required autofocus="autofocus">
+                    <option value="">Seleccione el consultorio</option>
+                    <option th:each="dato: ${listaconsultorio}" th:value="${dato.idConsultorio}" th:text="${dato.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="id_sede">Sede : </label>
+                <select id="id_sede" class="form-control" name="id_sede" th:field="*{sede.idSede}" required autofocus="autofocus">
+                    <option value="">Seleccione la sede</option>
+                    <option th:each="dato : ${listasede}" th:value="${dato.idSede}" th:text="${dato.nombre}"></option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Registrar</button>
+            <a class="btn btn-primary" href="#" th:href="@{/medico/{identificacion}(identificacion=${identificacion})}">Volver</a>
+        </form>
+</div>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous">
+</script>
+</body>

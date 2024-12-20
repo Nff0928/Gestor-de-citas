@@ -1,0 +1,18 @@
+/* estilos.css */
+.nav-item {
+    font-size: 15px; height: 60px
+}
+
+.form-group label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.navbar fixed-top {
+    background-color: #0037B6;
+    padding-left: 30px;
+}
+
+.margen {
+    padding-top: 150px;
+}

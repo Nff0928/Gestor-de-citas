@@ -1,0 +1,55 @@
+<!DOCTYPE html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista afiliaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container" style="width : 90%">
+    <br>
+    <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor/{identificacion}(identificacion=${identificacion})}">Volver</a>
+    <br> <br>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Número de solicitud</th>
+            <th>Tipo de Afiliación</th>
+            <th>Tipo de Identificación</th>
+            <th>Identificación</th>
+            <th>Nombre Completo</th>
+            <th>Celular</th>
+            <th>Dirección</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Consultor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dato : ${listafiliacion}">
+            <td th:text="${dato.idAfiliacion}">Número de solicitud</td>
+            <td th:text="${dato.tipoAfiliacion}">Tipo de Afiliación</td>
+            <td th:text="${dato.tipoId}">Tipo de Identificación</td>
+            <td th:text="${dato.idAfiliado}">Identificación</td>
+            <td th:text="${dato.celular}">Celular</td>
+            <td th:text="${dato.direccion}">Dirección</td>
+            <td th:text="${dato.correo}">Correo</td>
+            <td th:text="${dato.estadoSolicitud}">Estado</td>
+            <td th:text="${dato.idConsultor}">Consultor</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+</script>
+</body>
+</html>
